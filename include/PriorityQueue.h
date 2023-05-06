@@ -29,7 +29,7 @@ public:
 	void push(const T& t)
 	{
 		auto iterator = _data.begin();
-		// Find the location to insert as the list's value are from small to big. 
+		// Find the location to insert the element
 		while (iterator != _data.end() && cmp(*iterator, t) < 0)
 			iterator++;
 
