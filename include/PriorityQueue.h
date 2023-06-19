@@ -13,7 +13,7 @@ struct MyComparator
 	* a == b	zero
 	* a < b		negative difference
 	*/
-	T operator()(T a, T b) const {
+	T operator()(const T& a, const T& b) const {
 		return a - b;
 	}
 };
@@ -22,15 +22,13 @@ template <typename T>
 class PriorityQueue
 {
 public:
-	PriorityQueue() = default;
-	~PriorityQueue() = default;
 
 	// Push new element into the priority queue.
 	void push(const T& t)
 	{
-		auto iterator = _data.begin();
+		auto iterator = _data.cbegin();
 		// Find the location to insert the element
-		while (iterator != _data.end() && cmp(*iterator, t) < 0)
+		while (iterator != _data.cend() && cmp(*iterator, t) < 0)
 			iterator++;
 
 		_data.insert(iterator, t);
@@ -39,7 +37,7 @@ public:
 	T poll()
 	{
 		if (_data.empty())
-			throw std::out_of_range("PriorityQueue is empty");
+			throw std::logic_error("PriorityQueue is empty");
 		
 		T val = _data.front();
 		_data.pop_front();
